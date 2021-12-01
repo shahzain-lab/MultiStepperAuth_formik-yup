@@ -8,10 +8,10 @@ import '../Form.css';
 import { SubmitBtn } from '../../styles/Form.style';
 
 interface Props {
-    submitStep: React.Dispatch<React.SetStateAction<number>>
+    handleNext: () => void;
 }
 
-const PaymentForm: React.FC<Props> = ({ submitStep }) => {
+const PaymentForm: React.FC<Props> = ({ handleNext }) => {
     return (
         <FormContainer>
             <ImgBox url={payment} />
@@ -34,7 +34,7 @@ const PaymentForm: React.FC<Props> = ({ submitStep }) => {
 
                 onSubmit={(values, { setSubmitting, setValues }) => {
                     console.log(values);
-                    submitStep(2)
+                    handleNext()
                     setSubmitting(false)
 
                 }}
@@ -50,7 +50,7 @@ const PaymentForm: React.FC<Props> = ({ submitStep }) => {
                     <span className="error"><ErrorMessage name="securityCode" /></span>
                     <Field type="date" name="birthday" />
                     <span className="error"><ErrorMessage name="birthday" /></span>
-                    <Field type="date" placeholder="Enter Expiry Date..." name="expiryDate" />
+                    <Field onFocus="(type='date')" type="text" placeholder="Enter Expiry Date..." name="expiryDate" />
                     <span className="error"><ErrorMessage name="expiryDate" /></span>
                     <SubmitBtn type="submit">Submit</SubmitBtn>
                 </Form>

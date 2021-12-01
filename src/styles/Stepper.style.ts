@@ -13,3 +13,7 @@ width: 100%;
  justify-content: center;
  align-items: center
 `;
+
+export const FinishBox = styled.div`
+  
+`;

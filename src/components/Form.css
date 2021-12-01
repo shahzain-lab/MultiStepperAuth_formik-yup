@@ -15,7 +15,8 @@
   color: rgba(135, 135, 136, 0.87);
 }
 
-.formBox input {
+.formBox input,
+.formBox textarea {
   width: 70%;
   font-size: 1.2rem;
   padding: 10px 15px;
@@ -27,6 +28,10 @@
 }
 
 .formBox input::placeholder {
+  color: rgba(180, 178, 178, 0.931);
+}
+
+.formBox textarea::placeholder {
   color: rgba(180, 178, 178, 0.931);
 }
 

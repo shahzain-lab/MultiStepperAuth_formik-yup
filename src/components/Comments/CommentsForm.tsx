@@ -4,18 +4,18 @@ import * as Yup from 'yup';
 import { FormContainer } from '../../styles/Stepper.style';
 import '../Form.css';
 import ImgBox from '../ImgBox';
-import signup from '../../assets/signup.jpg';
+import message from '../../assets/message.jpeg';
 import { SubmitBtn } from '../../styles/Form.style';
 import '../Form.css'
 
 interface Props {
-    submitStep: React.Dispatch<React.SetStateAction<number>>
+    handleNext: () => void;
 }
 
-const ContactForm: React.FC<Props> = ({ submitStep }) => {
+const ContactForm: React.FC<Props> = ({ handleNext }) => {
     return (
         <FormContainer>
-            <ImgBox url={signup} />
+            <ImgBox url={message} />
             <Formik
                 initialValues={{
                     productName: '',
@@ -31,7 +31,7 @@ const ContactForm: React.FC<Props> = ({ submitStep }) => {
 
                 onSubmit={(values, { setSubmitting }) => {
                     console.log(values);
-                    submitStep(1)
+                    handleNext()
                     setSubmitting(false)
 
                 }}
@@ -43,7 +43,7 @@ const ContactForm: React.FC<Props> = ({ submitStep }) => {
                     <span className="error"><ErrorMessage name="productName" /></span>
                     <Field type="text" placeholder="product ID..." name="productID" />
                     <span className="error"><ErrorMessage name="productID" /></span>
-                    <Field type="text" placeholder="Enter message..." name="message" />
+                    <Field type="text" as="textarea" rows={5} placeholder="Enter message..." name="message" />
                     <span className="error"><ErrorMessage name="message" /></span>
                     <SubmitBtn type="submit">Submit</SubmitBtn>
                 </Form>

@@ -8,11 +8,23 @@ import Typography from '@mui/material/Typography';
 import SignupForm from '../Signup/SignupForm';
 import PaymentForm from '../Payment/PaymentForm';
 import ContactForm from '../Comments/CommentsForm';
-import { FormContainer, StepperStyle } from '../../styles/Stepper.style';
+import { FinishBox, StepperStyle } from '../../styles/Stepper.style';
 
 const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
 
+const handleStep = (step: number, handleComplete: () => void) => {
+    switch (step) {
+        case 0:
+            return <SignupForm handleNext={handleComplete} />
+        case 1:
+            return <PaymentForm handleNext={handleComplete} />
+        case 2:
+            return <ContactForm handleNext={handleComplete} />
+        default:
+            return 'no index specified'
+    }
 
+};
 export default function StepperForm() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [completed, setCompleted] = React.useState<{
@@ -35,44 +47,30 @@ export default function StepperForm() {
         return completedSteps() === totalSteps();
     };
 
-    // const handleNext = () => {
-    //     const newActiveStep =
-    //         isLastStep() && !allStepsCompleted()
-    //             ? // It's the last step, but not all steps have been completed,
-    //             // find the first step that has been completed
-    //             steps.findIndex((step, i) => !(i in completed))
-    //             : activeStep + 1;
-    //     setActiveStep(newActiveStep);
-    // };
-
-    // const handleBack = () => {
-    //     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    // };
-
-    const handleStep = (step: number) => {
-        switch (step) {
-            case 0:
-                return <SignupForm submitStep={setActiveStep} />
-            case 1:
-                return <PaymentForm submitStep={setActiveStep} />
-            case 2:
-                return <ContactForm submitStep={setActiveStep} />
-            default:
-                return 'no index specified'
-        }
-
+    const handleNext = () => {
+        const newActiveStep =
+            isLastStep() && !allStepsCompleted()
+                ? // It's the last step, but not all steps have been completed,
+                // find the first step that has been completed
+                steps.findIndex((step, i) => !(i in completed))
+                : activeStep + 1;
+        setActiveStep(newActiveStep);
     };
-    // const handleComplete = () => {
-    //     const newCompleted = completed;
-    //     newCompleted[activeStep] = true;
-    //     setCompleted(newCompleted);
-    //     handleNext();
-    // };
 
-    // const handleReset = () => {
-    //     setActiveStep(0);
-    //     setCompleted({});
-    // };
+
+
+
+    const handleComplete = () => {
+        const newCompleted = completed;
+        newCompleted[activeStep] = true;
+        setCompleted(newCompleted);
+        handleNext();
+    };
+
+    const handleReset = () => {
+        setActiveStep(0);
+        setCompleted({});
+    };
 
     return (
         <StepperStyle>
@@ -85,9 +83,19 @@ export default function StepperForm() {
                     </Step>
                 ))}
             </Stepper>
-            <>
-                {handleStep(activeStep)}
-            </>
+            {allStepsCompleted() ? (
+                <FinishBox>
+                    <Typography sx={{ mt: 6, mb: 1 }}>
+                        You have submited your information - Thanks
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                        <Box sx={{ flex: '1 1 auto' }} />
+                        <Button onClick={handleReset}>Reset</Button>
+                    </Box>
+                </FinishBox>
+            ) :
+                <> {handleStep(activeStep, handleComplete)}</>
+            }
         </StepperStyle>
     );
 }

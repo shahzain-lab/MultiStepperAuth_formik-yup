@@ -8,10 +8,10 @@ import ImgBox from '../ImgBox';
 import '../Form.css';
 
 interface Props {
-    submitStep: React.Dispatch<React.SetStateAction<number>>
+    handleNext: () => void;
 }
 
-const SignupForm: React.FC<Props> = ({ submitStep }) => {
+const SignupForm: React.FC<Props> = ({ handleNext }) => {
     return (
         <FormContainer>
             <ImgBox url={signup} />
@@ -32,7 +32,7 @@ const SignupForm: React.FC<Props> = ({ submitStep }) => {
 
                 onSubmit={(values, { setSubmitting, setValues }) => {
                     console.log(values);
-                    submitStep(1)
+                    handleNext()
                     setSubmitting(false)
 
                 }}
