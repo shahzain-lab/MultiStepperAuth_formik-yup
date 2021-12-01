@@ -1,7 +1,11 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import React from 'react'
 import * as Yup from 'yup';
-
+import { FormContainer } from '../../styles/Stepper.style';
+import ImgBox from '../ImgBox';
+import payment from '../../assets/payment.jpg';
+import '../Form.css';
+import { SubmitBtn } from '../../styles/Form.style';
 
 interface Props {
     submitStep: React.Dispatch<React.SetStateAction<number>>
@@ -9,50 +13,49 @@ interface Props {
 
 const PaymentForm: React.FC<Props> = ({ submitStep }) => {
     return (
-        <Formik
-            initialValues={{
-                cardName: '',
-                cardNumber: 0,
-                securityCode: 0,
-                birthday: '',
-                expiryDate: ''
-            }}
+        <FormContainer>
+            <ImgBox url={payment} />
+            <Formik
+                initialValues={{
+                    cardName: '',
+                    cardNumber: 0,
+                    securityCode: 0,
+                    birthday: '',
+                    expiryDate: ''
+                }}
 
-            validationSchema={Yup.object({
-                cardName: Yup.string().min(8, 'Card Name should be greater than 6 characters').required('required'),
-                cardNumber: Yup.number().min(12, 'Card number should contains at least 12 characters').required('required'),
-                securityCode: Yup.number().required('required'),
-                birthday: Yup.string().required('required'),
-                expiryDate: Yup.string().required('required')
-            })}
+                validationSchema={Yup.object({
+                    cardName: Yup.string().min(8, 'Card Name should be greater than 6 characters').required('required'),
+                    cardNumber: Yup.number().min(12, 'Card number should contains at least 12 characters').required('required'),
+                    securityCode: Yup.number().required('required'),
+                    birthday: Yup.string().required('required'),
+                    expiryDate: Yup.string().required('required')
+                })}
 
-            onSubmit={(values, { setSubmitting, setValues }) => {
-                console.log(values);
-                submitStep(2)
-                setSubmitting(false)
+                onSubmit={(values, { setSubmitting, setValues }) => {
+                    console.log(values);
+                    submitStep(2)
+                    setSubmitting(false)
 
-            }}
+                }}
 
-        >
-            <Form>
-                <label htmlFor="Card Name">Card Name</label>
-                <Field type="text" placeholder="Enter Card Name..." name="cardName" />
-                <ErrorMessage name="cardName" />
-                <label htmlFor="Card Number">Card Number</label>
-                <Field type="number" placeholder="Enter Card Number..." name="cardNumber" />
-                <ErrorMessage name="cardNumber" />
-                <label htmlFor="Security Code">Security Code</label>
-                <Field type="number" placeholder="Enter Security Code..." name="securityCode" />
-                <ErrorMessage name="securityCode" />
-                <label htmlFor="Birthday">Birthday</label>
-                <Field type="date" name="birthday" />
-                <ErrorMessage name="birthday" />
-                <label htmlFor="Expiry Date">Expiry Date</label>
-                <Field type="text" placeholder="Enter Expiry Date..." name="expiryDate" />
-                <ErrorMessage name="expiryDate" />
-                <button type="submit">Submit</button>
-            </Form>
-        </Formik>
+            >
+                <Form className="formBox">
+                    <h3>Enter your credit information</h3>
+                    <Field type="text" placeholder="Enter Card Name..." name="cardName" />
+                    <span className="error"><ErrorMessage name="cardName" /></span>
+                    <Field type="number" placeholder="Enter Card Number..." name="cardNumber" />
+                    <span className="error"><ErrorMessage name="cardNumber" /></span>
+                    <Field type="number" placeholder="Enter Security Code..." name="securityCode" />
+                    <span className="error"><ErrorMessage name="securityCode" /></span>
+                    <Field type="date" name="birthday" />
+                    <span className="error"><ErrorMessage name="birthday" /></span>
+                    <Field type="date" placeholder="Enter Expiry Date..." name="expiryDate" />
+                    <span className="error"><ErrorMessage name="expiryDate" /></span>
+                    <SubmitBtn type="submit">Submit</SubmitBtn>
+                </Form>
+            </Formik>
+        </FormContainer>
     )
 }
 

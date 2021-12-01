@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import SignupForm from '../Signup/SignupForm';
 import PaymentForm from '../Payment/PaymentForm';
 import ContactForm from '../Comments/CommentsForm';
-import { StepperStyle } from '../styles/Stepper.style';
+import { FormContainer, StepperStyle } from '../../styles/Stepper.style';
 
 const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
 
@@ -85,9 +85,9 @@ export default function StepperForm() {
                     </Step>
                 ))}
             </Stepper>
-            <div style={{ marginTop: "10rem" }}>
+            <>
                 {handleStep(activeStep)}
-            </div>
+            </>
         </StepperStyle>
     );
 }
