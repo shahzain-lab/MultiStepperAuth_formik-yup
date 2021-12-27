@@ -33,7 +33,6 @@ const PaymentForm: React.FC<Props> = ({ handleNext }) => {
                 })}
 
                 onSubmit={(values, { setSubmitting, setValues }) => {
-                    console.log(values);
                     handleNext()
                     setSubmitting(false)
 
@@ -48,9 +47,9 @@ const PaymentForm: React.FC<Props> = ({ handleNext }) => {
                     <span className="error"><ErrorMessage name="cardNumber" /></span>
                     <Field type="number" placeholder="Enter Security Code..." name="securityCode" />
                     <span className="error"><ErrorMessage name="securityCode" /></span>
-                    <Field type="date" name="birthday" />
+                    <Field type="date" placeholder="Select your birthday" name="birthday" />
                     <span className="error"><ErrorMessage name="birthday" /></span>
-                    <Field onFocus="(type='date')" type="text" placeholder="Enter Expiry Date..." name="expiryDate" />
+                    <Field type="date" placeholder="Enter Expiry Date..." name="expiryDate" />
                     <span className="error"><ErrorMessage name="expiryDate" /></span>
                     <SubmitBtn type="submit">Submit</SubmitBtn>
                 </Form>

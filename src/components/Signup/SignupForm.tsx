@@ -19,7 +19,7 @@ const SignupForm: React.FC<Props> = ({ handleNext }) => {
                 initialValues={{
                     firstName: '',
                     lastName: '',
-                    age: null,
+                    age: 0,
                     email: ''
                 }}
 
@@ -31,7 +31,6 @@ const SignupForm: React.FC<Props> = ({ handleNext }) => {
                 })}
 
                 onSubmit={(values, { setSubmitting, setValues }) => {
-                    console.log(values);
                     handleNext()
                     setSubmitting(false)
 

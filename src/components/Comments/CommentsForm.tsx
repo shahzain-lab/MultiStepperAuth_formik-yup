@@ -30,7 +30,6 @@ const ContactForm: React.FC<Props> = ({ handleNext }) => {
                 })}
 
                 onSubmit={(values, { setSubmitting }) => {
-                    console.log(values);
                     handleNext()
                     setSubmitting(false)
 
@@ -39,11 +38,11 @@ const ContactForm: React.FC<Props> = ({ handleNext }) => {
             >
                 <Form className="formBox">
                     <h3>Plaese enter your feedback</h3>
-                    <Field type="text" placeholder="Enter product name..." name="productName" />
+                    <Field values='' type="text" placeholder="Enter product name..." name="productName" />
                     <span className="error"><ErrorMessage name="productName" /></span>
-                    <Field type="text" placeholder="product ID..." name="productID" />
+                    <Field values='' type="text" placeholder="product ID..." name="productID" />
                     <span className="error"><ErrorMessage name="productID" /></span>
-                    <Field type="text" as="textarea" rows={5} placeholder="Enter message..." name="message" />
+                    <Field values='' type="text" as="textarea" rows={5} placeholder="Enter message..." name="message" />
                     <span className="error"><ErrorMessage name="message" /></span>
                     <SubmitBtn type="submit">Submit</SubmitBtn>
                 </Form>
